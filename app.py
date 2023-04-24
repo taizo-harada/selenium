@@ -1,113 +1,13 @@
 # coding:utf-8
 
 # 必要なパッケージのインポート
-import os
-import shutil
-
 import streamlit as st
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome import service as fs
-from selenium.webdriver import ChromeOptions
-from webdriver_manager.core.utils import ChromeType
-from selenium.webdriver.common.by import By
-# ------------------------------------------------------------------------------------------
-# -フォルダ初期化
-def setFolder(new_dir_path):
-    # os.path.isdir()は対象のディレクトリの存在を確認
-    if(os.path.isdir(new_dir_path) == True):
-        # フォルダがあったら削除
-        shutil.rmtree(new_dir_path)
-    # フォルダを作成
-    os.mkdir(new_dir_path)
-# ------------------------------------------------------------------------------------------
-# -画像書き出し
-def setImage(path, fileName, image):
-    with open(os.path.join(path, fileName), 'wb') as f:
-        f.write(image)
-# ------------------------------------------------------------------------------------------
-# -ダウンロードボタン
-def setButtonDownload(zipFilename, button):
-    button.download_button(
-        'ダウンロード',
-        open(zipFilename, 'br'),
-        zipFilename
-    )
 # ------------------------------------------------------------------------------------------
 def main():
-    pathFiles= 'files'
-    zipFilename = pathFiles + '.zip'
-
     # タイトルを設定
-    st.title("seleniumテストアプリ")
+    st.title('広告取得アプリ')
 
-    # ボタンを作成(このボタンをアプリ上で押すと"if press_button:"より下の部分が実行される)
-    press_button = st.button("スクレイピング開始")
-
-    tmpImage = st.empty()
-    downloadButton = st.empty()
-
-    # # フォルダがあったら画像表示
-    # if(os.path.isdir(pathFiles) == True):
-    #     tmpImage.image(os.path.join(pathFiles, "tmp_img.png"))
-    # # zipがあったらダウンロード表示
-    # if os.path.exists(zipFilename) :
-    #     setButtonDownload(zipFilename, downloadButton)
-
-    if press_button:
-        tmpImage.empty()
-        downloadButton.empty()
-
-        # 書き出し先のフォルダ準備
-        setFolder(pathFiles)
-        if os.path.exists(zipFilename) :
-            print('zipファイルが存在しました')
-            os.remove(zipFilename)
-
-        # スクレイピングするwebサイトのURL
-        URL = "https://www.yahoo.co.jp/"
-
-        # ドライバのオプション
-        options = ChromeOptions()
-
-        # option設定を追加（設定する理由はメモリの削減）
-        options.add_argument("--headless")
-        options.add_argument('--disable-gpu')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--remote-debugging-port=9222')
-
-        # webdriver_managerによりドライバーをインストール
-        CHROMEDRIVER = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()  # chromiumを使用したいので引数でchromiumを指定しておく
-        service = fs.Service(CHROMEDRIVER)
-        driver = webdriver.Chrome(
-                                options=options,
-                                service=service
-                                )
-
-        # URLで指定したwebページを開く
-        driver.get(URL)
-
-        # webページ上のタイトル画像を取得
-        img = driver.find_element(By.TAG_NAME, 'img')
-        src = img.get_attribute('src')
-
-        # 取得した画像をカレントディレクトリに保存
-        setImage(pathFiles, "tmp_img.png", img.screenshot_as_png)
-
-        # 保存した画像をstreamlitアプリ上に表示
-        tmpImage.image(os.path.join(pathFiles, "tmp_img.png"))
-
-        # webページを閉じる
-        driver.close()
-
-        # フォルダ圧縮
-        shutil.make_archive(pathFiles,'zip',root_dir=pathFiles)
-
-        # スクレイピング完了したことをstreamlitアプリ上に表示する
-        st.write("スクレイピング完了!!!")
-
-        setButtonDownload(zipFilename, downloadButton)
-
+    st.write('※各メニューに追加')
+# ------------------------------------------------------------------------------------------
 if __name__ == '__main__':
     main()
