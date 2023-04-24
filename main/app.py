@@ -55,6 +55,6 @@ if press_button:
     driver.close()
 
     # スクレピン完了したことをstreamlitアプリ上に表示する
-    st.write("スクレイピング完了!!!")
+    st.success("スクレイピング完了!!!")
     # 風船飛ばす
     st.balloons()
