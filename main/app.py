@@ -56,3 +56,5 @@ if press_button:
 
     # スクレピン完了したことをstreamlitアプリ上に表示する
     st.write("スクレイピング完了!!!")
+    # 風船飛ばす
+    st.balloons()
