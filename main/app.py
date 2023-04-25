@@ -10,7 +10,7 @@ from webdriver_manager.core.utils import ChromeType
 from selenium.webdriver.common.by import By
 
 # タイトルを設定
-st.title("seleniumテスト｜アプリ")
+st.title("seleniumテストアプリ")
 
 # ボタンを作成(このボタンをアプリ上で押すと"if press_button:"より下の部分が実行される)
 press_button = st.button("スクレイピング開始")
