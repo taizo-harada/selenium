@@ -12,49 +12,49 @@ from selenium.webdriver.common.by import By
 # タイトルを設定
 st.title("seleniumテストアプリ")
 
-# ボタンを作成(このボタンをアプリ上で押すと"if press_button:"より下の部分が実行される)
-press_button = st.button("スクレイピング開始")
+# # ボタンを作成(このボタンをアプリ上で押すと"if press_button:"より下の部分が実行される)
+# press_button = st.button("スクレイピング開始")
 
-if press_button:
-    # スクレイピングするwebサイトのURL
-    URL = "https://www.yahoo.co.jp/"
+# if press_button:
+#     # スクレイピングするwebサイトのURL
+#     URL = "https://www.yahoo.co.jp/"
 
-    # ドライバのオプション
-    options = ChromeOptions()
+#     # ドライバのオプション
+#     options = ChromeOptions()
 
-    # option設定を追加（設定する理由はメモリの削減）
-    options.add_argument("--headless")
-    options.add_argument('--disable-gpu')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--remote-debugging-port=9222')
+#     # option設定を追加（設定する理由はメモリの削減）
+#     options.add_argument("--headless")
+#     options.add_argument('--disable-gpu')
+#     options.add_argument('--no-sandbox')
+#     options.add_argument('--disable-dev-shm-usage')
+#     options.add_argument('--remote-debugging-port=9222')
 
-    # webdriver_managerによりドライバーをインストール
-    CHROMEDRIVER = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()  # chromiumを使用したいので引数でchromiumを指定しておく
-    service = fs.Service(CHROMEDRIVER)
-    driver = webdriver.Chrome(
-                              options=options,
-                              service=service
-                             )
+#     # webdriver_managerによりドライバーをインストール
+#     CHROMEDRIVER = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()  # chromiumを使用したいので引数でchromiumを指定しておく
+#     service = fs.Service(CHROMEDRIVER)
+#     driver = webdriver.Chrome(
+#                               options=options,
+#                               service=service
+#                              )
 
-    # URLで指定したwebページを開く
-    driver.get(URL)
+#     # URLで指定したwebページを開く
+#     driver.get(URL)
 
-    # webページ上のタイトル画像を取得
-    img = driver.find_element(By.TAG_NAME, 'img')
-    src = img.get_attribute('src')
+#     # webページ上のタイトル画像を取得
+#     img = driver.find_element(By.TAG_NAME, 'img')
+#     src = img.get_attribute('src')
 
-    # 取得した画像をカレントディレクトリに保存
-    with open(f"tmp_img.png", "wb") as f:
-        f.write(img.screenshot_as_png)
+#     # 取得した画像をカレントディレクトリに保存
+#     with open(f"tmp_img.png", "wb") as f:
+#         f.write(img.screenshot_as_png)
 
-    # 保存した画像をstreamlitアプリ上に表示
-    st.image("tmp_img.png")
+#     # 保存した画像をstreamlitアプリ上に表示
+#     st.image("tmp_img.png")
 
-    # webページを閉じる
-    driver.close()
+#     # webページを閉じる
+#     driver.close()
 
-    # スクレピン完了したことをstreamlitアプリ上に表示する
-    st.success("スクレイピング完了!!!")
-    # 風船飛ばす
-    st.balloons()
+#     # スクレピン完了したことをstreamlitアプリ上に表示する
+#     st.success("スクレイピング完了!!!")
+#     # 風船飛ばす
+#     st.balloons()
